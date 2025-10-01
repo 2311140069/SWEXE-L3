@@ -1,0 +1,26 @@
+<h2>本一覧</h2>
+
+<table style="width:100%;border-collapse:collapse;">
+  <thead>
+    <tr style="text-align:left;border-bottom:1px solid #ddd;">
+      <th>タイトル</th>
+      <th>著者</th>
+      <th>URL</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr style="border-bottom:1px solid #f1f1f1;">
+        <td style="padding:8px;"><%= book.title %></td>
+        <td style="padding:8px;"><%= book.author %></td>
+        <td style="padding:8px;"><%= link_to book.url, book.url, target: '_blank', rel: 'noopener' %></td>
+        <td style="padding:8px;">
+          <%= link_to '表示', book_path(book) %> |
+          <%= link_to '編集', edit_book_path(book) %> |
+          <%= link_to '削除', book_path(book), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

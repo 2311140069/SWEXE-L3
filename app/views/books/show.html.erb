@@ -1,0 +1,7 @@
+<h2><%= @book.title %></h2>
+<p><strong>著者：</strong> <%= @book.author %></p>
+<p><strong>URL：</strong> <%= link_to @book.url, @book.url, target: '_blank', rel: 'noopener' %></p>
+
+<%= link_to '編集', edit_book_path(@book) %> |
+<%= link_to '一覧に戻る', books_path %>
+
