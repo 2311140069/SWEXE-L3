@@ -1,44 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
+    <title>蔵書管理アプリ</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", media: "all" %>
   </head>
+  <body>
+    <header>
+      <h1>📚 蔵書管理アプリ</h1>
+      <nav>
+        <ul>
+          <li><%= link_to "ホーム", root_path %></li>
+          <li><%= link_to "蔵書一覧", books_path %></li>
+          <li><%= link_to "新規登録", new_book_path %></li>
+        </ul>
+      </nav>
+    </header>
 
-<body>
-  <header style="max-width:900px;margin:20px auto;padding:0 12px;">
-    <h1>Books 管理</h1>
-    <nav>
-      <%= link_to '新規登録', new_book_path, style: 'background:#2d6cdf;color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none' %>
-    </nav>
-  </header>
+    <div id="container">
+      <aside id="sidebar">
+        <h3>メニュー</h3>
+        <ul>
+          <li><%= link_to "すべての本", books_path %></li>
+          <li><%= link_to "新しい本を登録", new_book_path %></li>
+          <li><%= link_to "新着情報", "#" %></li>
+        </ul>
 
-  <main style="max-width:900px;margin:0 auto;padding:0 12px;">
-    <% if notice %>
-      <div style="background:#e6ffea;border:1px solid #b6f0c5;padding:8px;border-radius:6px;margin-bottom:12px;"><%= notice %></div>
-    <% end %>
-    <% if alert %>
-      <div style="background:#fff0f0;border:1px solid #f2c2c2;padding:8px;border-radius:6px;margin-bottom:12px;color:#b00000;"><%= alert %></div>
-    <% end %>
+        <h3>検索</h3>
+        <%= form_with url: books_path, method: :get, local: true do %>
+          <%= text_field_tag :keyword, params[:keyword], placeholder: "タイトル検索" %>
+          <%= submit_tag "検索" %>
+        <% end %>
+      </aside>
 
-    <%= yield %>
-  </main>
- </body>
+      <main>
+        <%= yield %>
+      </main>
+    </div>
+
+    <footer>
+      <p>© 2025 蔵書管理アプリ</p>
+    </footer>
+  </body>
 </html>

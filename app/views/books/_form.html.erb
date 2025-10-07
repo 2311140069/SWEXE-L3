@@ -1,7 +1,7 @@
 <%= form_with model: @book, local: true do |f| %>
   <% if @book.errors.any? %>
-    <div style="color: #b00000; background:#fff6f6; border:1px solid #f2c2c2; padding:10px; border-radius:6px;">
-      <h4><%= pluralize(@book.errors.count, "エラー") %>があります：</h4>
+    <div class="error_messages">
+      <h3><%= @book.errors.count %> 件のエラーがあります:</h3>
       <ul>
         <% @book.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -11,17 +11,17 @@
   <% end %>
 
   <p>
-    <%= f.label :title, 'タイトル' %><br>
+    <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title %>
   </p>
 
   <p>
-    <%= f.label :author, '著者' %><br>
+    <%= f.label :author, "著者" %><br>
     <%= f.text_field :author %>
   </p>
 
   <p>
-    <%= f.label :url, 'URL' %><br>
+    <%= f.label :url, "URL" %><br>
     <%= f.text_field :url %>
   </p>
 
